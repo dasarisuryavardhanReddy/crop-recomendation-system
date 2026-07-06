@@ -20,6 +20,13 @@ python app.py
 
 Then open http://localhost:5000 in your browser.
 
+## 🌐 Live Demo
+
+You can view the deployed analytics dashboard here:
+
+https://crop-recomendation-system-eight.vercel.app/analytics
+
+
 ## 📁 Project Structure
 
 ```
