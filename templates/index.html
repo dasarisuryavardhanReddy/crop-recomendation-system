@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OptiCrop — Smart Agricultural Production Optimization Engine</title>
+  <meta name="description" content="AI-powered crop recommendation system using machine learning to optimize agricultural production based on soil nutrients, climate, and environmental factors."/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>"/>
+</head>
+<body>
+<!-- Animated Background -->
+<div class="bg-particles"></div>
+
+<!-- ══════════════════════════════════ NAVBAR ══════════════════════════════ -->
+<nav class="navbar">
+  <div class="container d-flex align-center justify-between">
+    <a href="/" class="navbar-brand">
+      <div class="brand-icon">🌱</div>
+      <div>
+        <div class="brand-text"><span>Opti</span><span>Crop</span></div>
+        <div class="brand-sub">Agricultural AI Engine</div>
+      </div>
+    </a>
+    <div class="d-flex align-center gap-1">
+      <a href="/" class="nav-link active">Home</a>
+      <a href="/crops" class="nav-link">Crops</a>
+      <a href="/analytics" class="nav-link">Analytics</a>
+      <a href="/about" class="nav-link">About</a>
+      <a href="#predict-form" class="nav-link btn-nav-cta btn btn-sm">Get Recommendation</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- ══════════════════════════════════ HERO ════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+      <div>
+        <div class="hero-badge">
+          <span>🤖</span> AI-Powered Agriculture
+        </div>
+        <h1 class="hero-title">
+          Smart Crop<br/>
+          <span class="gradient-text">Optimization</span><br/>
+          for Modern Farms
+        </h1>
+        <p class="hero-subtitle">
+          OptiCrop analyzes your soil composition and environmental conditions
+          to recommend the most profitable crops for maximum yield and sustainable production.
+        </p>
+        <div class="hero-actions">
+          <a href="#predict-form" class="btn btn-primary btn-lg">
+            🌾 Get Crop Recommendation
+          </a>
+          <a href="/analytics" class="btn btn-outline btn-lg">
+            📊 View Analytics
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">22+</div>
+            <div class="stat-label">Crop Types</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">93.9%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5</div>
+            <div class="stat-label">ML Models</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">7</div>
+            <div class="stat-label">Parameters</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Preview Card -->
+      <div class="hero-illustration">
+        <div class="hero-card-float">
+          <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;">
+            🔍 Sample Prediction
+          </div>
+          <div class="crop-result-preview">
+            <span class="crop-emoji-big">🌾</span>
+            <div class="crop-name-big">Rice</div>
+            <div class="crop-confidence">Confidence: 96.4%</div>
+          </div>
+          <div class="mini-params">
+            <div class="mini-param">
+              <div class="mini-param-label">Nitrogen (N)</div>
+              <div class="mini-param-value">82</div>
+            </div>
+            <div class="mini-param">
+              <div class="mini-param-label">Phosphorous</div>
+              <div class="mini-param-value">45</div>
+            </div>
+            <div class="mini-param">
+              <div class="mini-param-label">Potassium</div>
+              <div class="mini-param-value">43</div>
+            </div>
+            <div class="mini-param">
+              <div class="mini-param-label">Temperature</div>
+              <div class="mini-param-value">25°C</div>
+            </div>
+            <div class="mini-param">
+              <div class="mini-param-label">Humidity</div>
+              <div class="mini-param-value">88%</div>
+            </div>
+            <div class="mini-param">
+              <div class="mini-param-label">pH Level</div>
+              <div class="mini-param-value">6.5</div>
+            </div>
+          </div>
+          <div style="margin-top:1.2rem;padding:0.75rem;background:rgba(34,197,94,0.08);border:1px solid var(--border);border-radius:10px;text-align:center;">
+            <span style="color:var(--green-400);font-weight:700;font-size:0.85rem;">✅ Optimal Growing Conditions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ HOW IT WORKS ══════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-4">
+      <div class="section-label">⚙️ Process</div>
+      <h2 class="section-title">How <span class="gradient-text">OptiCrop</span> Works</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Three simple steps to get precise crop recommendations powered by advanced machine learning algorithms.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card feature-card animate-in">
+        <div class="feature-icon" style="background:rgba(34,197,94,0.1);">🧪</div>
+        <div style="position:absolute;top:1.5rem;right:1.5rem;font-size:3rem;font-weight:900;color:rgba(34,197,94,0.07);">01</div>
+        <h3 class="feature-title">Input Parameters</h3>
+        <p class="feature-desc">Enter your soil's NPK values, temperature, humidity, pH level, and rainfall data through our intuitive form.</p>
+      </div>
+      <div class="card feature-card animate-in" style="transition-delay:0.1s">
+        <div class="feature-icon" style="background:rgba(16,185,129,0.1);">🤖</div>
+        <div style="position:absolute;top:1.5rem;right:1.5rem;font-size:3rem;font-weight:900;color:rgba(16,185,129,0.07);">02</div>
+        <h3 class="feature-title">AI Analysis</h3>
+        <p class="feature-desc">Our trained Random Forest model (93.9% accuracy) processes your data and evaluates crop suitability across 22 varieties.</p>
+      </div>
+      <div class="card feature-card animate-in" style="transition-delay:0.2s">
+        <div class="feature-icon" style="background:rgba(251,191,36,0.1);">🎯</div>
+        <div style="position:absolute;top:1.5rem;right:1.5rem;font-size:3rem;font-weight:900;color:rgba(251,191,36,0.07);">03</div>
+        <h3 class="feature-title">Smart Recommendation</h3>
+        <p class="feature-desc">Receive the best crop recommendation with confidence scores, growing tips, and seasonal information.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PREDICT FORM ══════════════════════════ -->
+<section class="section" id="predict-form" style="background:rgba(34,197,94,0.02);">
+  <div class="container-sm">
+    <div class="text-center mb-4">
+      <div class="section-label">🌱 Prediction Engine</div>
+      <h2 class="section-title">Get Your <span class="gradient-text">Crop Recommendation</span></h2>
+      <p class="section-subtitle" style="margin:0 auto;">Fill in your soil and environmental parameters below for an instant AI-powered crop recommendation.</p>
+    </div>
+
+    {% if errors %}
+    <div class="alert alert-danger mb-3">
+      <span>⚠️</span>
+      <div>
+        {% for e in errors %}<div>{{ e }}</div>{% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="form-section">
+      <form method="POST" action="/predict" id="crop-form">
+        <!-- NPK Row -->
+        <div style="margin-bottom:0.5rem;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);font-weight:700;">
+          🧫 Soil Nutrient Levels
+        </div>
+        <div class="form-grid mb-3">
+          <!-- Nitrogen -->
+          <div class="form-group mb-0">
+            <label class="form-label" for="N">
+              <span class="label-icon">🟢</span>
+              Nitrogen (N)
+              <span data-tooltip="Essential for leaf & stem growth" style="margin-left:auto;cursor:help;color:var(--text-muted);font-size:0.8rem;">ℹ️</span>
+            </label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="N" name="N" step="0.1" min="0" max="200"
+                     placeholder="0 – 200" required
+                     value="{{ prev_values.N if prev_values else '' }}"
+                     oninput="updatePreview()"/>
+              <span class="input-suffix">kg/ha</span>
+            </div>
+          </div>
+          <!-- Phosphorous -->
+          <div class="form-group mb-0">
+            <label class="form-label" for="P">
+              <span class="label-icon">🔵</span>
+              Phosphorous (P)
+              <span data-tooltip="Promotes root development" style="margin-left:auto;cursor:help;color:var(--text-muted);font-size:0.8rem;">ℹ️</span>
+            </label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="P" name="P" step="0.1" min="0" max="150"
+                     placeholder="0 – 150" required
+                     value="{{ prev_values.P if prev_values else '' }}"
+                     oninput="updatePreview()"/>
+              <span class="input-suffix">kg/ha</span>
+            </div>
+          </div>
+          <!-- Potassium -->
+          <div class="form-group mb-0">
+            <label class="form-label" for="K">
+              <span class="label-icon">🟡</span>
+              Potassium (K)
+              <span data-tooltip="Improves crop quality & disease resistance" style="margin-left:auto;cursor:help;color:var(--text-muted);font-size:0.8rem;">ℹ️</span>
+            </label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="K" name="K" step="0.1" min="0" max="300"
+                     placeholder="0 – 300" required
+                     value="{{ prev_values.K if prev_values else '' }}"
+                     oninput="updatePreview()"/>
+              <span class="input-suffix">kg/ha</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="margin-bottom:0.5rem;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);font-weight:700;">
+          🌡️ Environmental Conditions
+        </div>
+        <div class="form-grid mb-3">
+          <!-- Temperature -->
+          <div class="form-group mb-0">
+            <label class="form-label" for="temperature">
+              <span class="label-icon">🌡️</span>
+              Temperature
+            </label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="temperature" name="temperature"
+                     step="0.1" min="-10" max="50"
+                     placeholder="-10 – 50" required
+                     value="{{ prev_values.temperature if prev_values else '' }}"
+                     oninput="updatePreview()"/>
+              <span class="input-suffix">°C</span>
+            </div>
+          </div>
+          <!-- Humidity -->
+          <div class="form-group mb-0">
+            <label class="form-label" for="humidity">
+              <span class="label-icon">💧</span>
+              Humidity
+            </label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="humidity" name="humidity"
+                     step="0.1" min="0" max="100"
+                     placeholder="0 – 100" required
+                     value="{{ prev_values.humidity if prev_values else '' }}"
+                     oninput="updatePreview()"/>
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <!-- pH -->
+          <div class="form-group mb-0">
+            <label class="form-label" for="ph">
+              <span class="label-icon">⚗️</span>
+              Soil pH Level
+              <span data-tooltip="0 = highly acid, 14 = highly alkaline, 7 = neutral" style="margin-left:auto;cursor:help;color:var(--text-muted);font-size:0.8rem;">ℹ️</span>
+            </label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="ph" name="ph"
+                     step="0.01" min="0" max="14"
+                     placeholder="0 – 14" required
+                     value="{{ prev_values.ph if prev_values else '' }}"
+                     oninput="updatePreview()"/>
+            </div>
+          </div>
+          <!-- Rainfall -->
+          <div class="form-group mb-0">
+            <label class="form-label" for="rainfall">
+              <span class="label-icon">🌧️</span>
+              Rainfall
+            </label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="rainfall" name="rainfall"
+                     step="0.1" min="0" max="500"
+                     placeholder="0 – 500" required
+                     value="{{ prev_values.rainfall if prev_values else '' }}"
+                     oninput="updatePreview()"/>
+              <span class="input-suffix">mm</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Quick Fill Presets -->
+        <div class="mb-3">
+          <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.75rem;">
+            ⚡ Quick Fill Presets
+          </div>
+          <div class="d-flex gap-1" style="flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="fillPreset('rice')">🌾 Rice</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="fillPreset('maize')">🌽 Maize</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="fillPreset('banana')">🍌 Banana</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="fillPreset('cotton')">🌸 Cotton</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="fillPreset('coffee')">☕ Coffee</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="fillPreset('apple')">🍏 Apple</button>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2" style="flex-wrap:wrap;">
+          <button type="submit" class="btn btn-primary btn-lg w-100" id="submit-btn">
+            <span id="btn-text">🌱 Analyze & Recommend Crop</span>
+            <span id="btn-spinner" class="spinner" style="display:none;"></span>
+          </button>
+        </div>
+        <div class="text-center mt-2">
+          <span class="text-sm text-muted">Powered by Random Forest ML — {{ model_info.best_accuracy * 100 | round(1) }}% accuracy</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FEATURES ══════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-4">
+      <div class="section-label">✨ Capabilities</div>
+      <h2 class="section-title">Why Choose <span class="gradient-text">OptiCrop?</span></h2>
+    </div>
+    <div class="grid-4">
+      <div class="card feature-card animate-in text-center">
+        <div class="feature-icon" style="background:rgba(34,197,94,0.1);margin:0 auto 1rem;">🌍</div>
+        <h3 class="feature-title">22 Crop Types</h3>
+        <p class="feature-desc text-sm">Cereals, legumes, fruits, and cash crops all supported.</p>
+      </div>
+      <div class="card feature-card animate-in text-center" style="transition-delay:0.1s">
+        <div class="feature-icon" style="background:rgba(59,130,246,0.1);margin:0 auto 1rem;">📡</div>
+        <h3 class="feature-title">REST API</h3>
+        <p class="feature-desc text-sm">JSON API endpoint for integration with other systems.</p>
+      </div>
+      <div class="card feature-card animate-in text-center" style="transition-delay:0.2s">
+        <div class="feature-icon" style="background:rgba(251,191,36,0.1);margin:0 auto 1rem;">📈</div>
+        <h3 class="feature-title">Analytics Dashboard</h3>
+        <p class="feature-desc text-sm">Visualize model performance, feature importance, and crop data.</p>
+      </div>
+      <div class="card feature-card animate-in text-center" style="transition-delay:0.3s">
+        <div class="feature-icon" style="background:rgba(168,85,247,0.1);margin:0 auto 1rem;">⚡</div>
+        <h3 class="feature-title">Instant Results</h3>
+        <p class="feature-desc text-sm">Real-time predictions with confidence scores and top alternatives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ MODEL INFO ════════════════════════════ -->
+<section class="section-sm" style="background:rgba(34,197,94,0.02);">
+  <div class="container">
+    <div class="card" style="padding:2rem;">
+      <div class="d-flex align-center justify-between" style="flex-wrap:wrap;gap:1.5rem;">
+        <div>
+          <div class="section-label">🤖 Model Info</div>
+          <h3 class="fw-bold" style="font-size:1.3rem;">{{ model_info.best_model }}</h3>
+          <p class="text-sm text-muted mt-1">Best performing algorithm selected from KNN, Logistic Regression, Decision Tree & Random Forest</p>
+        </div>
+        <div class="d-flex gap-3" style="flex-wrap:wrap;">
+          <div class="text-center">
+            <div class="metric-value">{{ (model_info.best_accuracy * 100) | round(1) }}%</div>
+            <div class="metric-label">Test Accuracy</div>
+          </div>
+          {% for name, res in model_info.results.items() %}
+          <div class="text-center">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--text-secondary);">{{ (res.accuracy * 100) | round(1) }}%</div>
+            <div class="metric-label" style="font-size:0.68rem;">{{ name.split()[0] }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        <a href="/analytics" class="btn btn-outline btn-sm">View Full Analytics →</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═══════════════════════════════════ FOOTER ════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="grid-4" style="gap:3rem;">
+      <div>
+        <div class="footer-brand">
+          <a href="/" class="navbar-brand">
+            <div class="brand-icon" style="width:32px;height:32px;font-size:1rem;">🌱</div>
+            <div class="brand-text" style="font-size:1.1rem;"><span>Opti</span><span>Crop</span></div>
+          </a>
+        </div>
+        <p class="footer-tagline">AI-powered crop recommendation for sustainable, data-driven agriculture.</p>
+      </div>
+      <div class="footer-links">
+        <h6>Navigation</h6>
+        <a href="/">Home</a>
+        <a href="/#predict-form">Get Recommendation</a>
+        <a href="/crops">Crop Catalog</a>
+        <a href="/analytics">Analytics</a>
+      </div>
+      <div class="footer-links">
+        <h6>Resources</h6>
+        <a href="/about">About Project</a>
+        <a href="/api/predict" target="_blank">API Docs</a>
+      </div>
+      <div class="footer-links">
+        <h6>Technology</h6>
+        <div class="footer-tech" style="flex-direction:column;gap:0.3rem;">
+          <span class="tech-badge">Python 3.14</span>
+          <span class="tech-badge">Flask 3.1</span>
+          <span class="tech-badge">scikit-learn 1.8</span>
+          <span class="tech-badge">Random Forest</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2024 OptiCrop — Smart Agricultural Production Optimization Engine</div>
+      <div class="footer-tech">
+        <span class="tech-badge">🌱 Flask</span>
+        <span class="tech-badge">🤖 ML</span>
+        <span class="tech-badge">📊 Analytics</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Preset data
+const PRESETS = {
+  rice:   { N:82, P:45, K:43, temperature:25, humidity:88, ph:6.5, rainfall:220 },
+  maize:  { N:78, P:65, K:68, temperature:22, humidity:65, ph:6.2, rainfall:85  },
+  banana: { N:100, P:65, K:220, temperature:27, humidity:82, ph:6.0, rainfall:145 },
+  cotton: { N:118, P:55, K:28, temperature:30, humidity:55, ph:7.0, rainfall:90  },
+  coffee: { N:100, P:18, K:28, temperature:22, humidity:65, ph:6.5, rainfall:195 },
+  apple:  { N:28, P:18, K:175, temperature:10, humidity:65, ph:6.2, rainfall:100 },
+};
+
+function fillPreset(crop) {
+  const p = PRESETS[crop];
+  if (!p) return;
+  Object.entries(p).forEach(([k,v]) => {
+    const el = document.getElementById(k);
+    if (el) el.value = v;
+  });
+  updatePreview();
+}
+
+function updatePreview() {
+  // visual feedback only - could enhance with live prediction
+}
+
+// Form submit spinner
+document.getElementById('crop-form').addEventListener('submit', function() {
+  document.getElementById('btn-text').textContent = 'Analyzing...';
+  document.getElementById('btn-spinner').style.display = 'inline-block';
+  document.getElementById('submit-btn').disabled = true;
+});
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

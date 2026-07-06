@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About OptiCrop — Smart Agricultural Production Optimization Engine</title>
+  <meta name="description" content="Learn about the OptiCrop project, machine learning methodology, and the team behind this agricultural AI platform."/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>"/>
+</head>
+<body>
+<div class="bg-particles"></div>
+
+<nav class="navbar">
+  <div class="container d-flex align-center justify-between">
+    <a href="/" class="navbar-brand">
+      <div class="brand-icon">🌱</div>
+      <div>
+        <div class="brand-text"><span>Opti</span><span>Crop</span></div>
+        <div class="brand-sub">Agricultural AI Engine</div>
+      </div>
+    </a>
+    <div class="d-flex align-center gap-1">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/crops" class="nav-link">Crops</a>
+      <a href="/analytics" class="nav-link">Analytics</a>
+      <a href="/about" class="nav-link active">About</a>
+      <a href="/#predict-form" class="nav-link btn-nav-cta btn btn-sm">Get Recommendation</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════ ABOUT HERO ══════════════════════ -->
+<section class="section">
+  <div class="container-sm">
+    <div class="text-center mb-4">
+      <div class="section-label">📖 About</div>
+      <h1 class="section-title">Smart Agricultural<br/><span class="gradient-text">Production Optimization</span></h1>
+      <p class="section-subtitle" style="margin:0 auto;">OptiCrop is a machine learning-based agricultural recommendation system that leverages environmental and soil parameters to help farmers, researchers, and policymakers make data-driven decisions.</p>
+    </div>
+
+    <!-- Mission Card -->
+    <div class="card mb-4" style="padding:2.5rem;border-color:rgba(34,197,94,0.3);">
+      <div class="d-flex gap-2" style="align-items:flex-start;flex-wrap:wrap;">
+        <div style="font-size:3rem;">🎯</div>
+        <div>
+          <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:0.75rem;">Our Mission</h2>
+          <p style="color:var(--text-secondary);line-height:1.8;">
+            To democratize precision agriculture by making AI-powered crop recommendations accessible to every farmer. By integrating key environmental factors — Nitrogen (N), Phosphorous (P), Potassium (K), temperature, humidity, pH, and rainfall — OptiCrop enables intelligent farming decisions that maximize yield and minimize resource waste.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three Scenarios -->
+    <div class="mb-4">
+      <div class="section-label">🎬 Use Cases</div>
+      <h2 class="section-title mb-3">Key <span class="gradient-text">Scenarios</span></h2>
+      <div class="d-flex" style="flex-direction:column;gap:1.25rem;">
+        <div class="card" style="padding:2rem;">
+          <div class="d-flex gap-2" style="align-items:flex-start;">
+            <div style="background:rgba(34,197,94,0.1);border-radius:var(--radius-md);padding:0.85rem;font-size:1.5rem;flex-shrink:0;">👨‍🌾</div>
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">Scenario 1: Smart Crop Recommendation for Farmers</h3>
+              <p class="text-sm" style="color:var(--text-secondary);line-height:1.7;">A farmer enters soil and environmental details such as N, P, K, temperature, humidity, pH level, and rainfall. The system analyzes the data and recommends the most suitable crop for maximum yield and better farming efficiency.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:2rem;">
+          <div class="d-flex gap-2" style="align-items:flex-start;">
+            <div style="background:rgba(59,130,246,0.1);border-radius:var(--radius-md);padding:0.85rem;font-size:1.5rem;flex-shrink:0;">🔬</div>
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">Scenario 2: Crop Suitability & Environmental Assessment</h3>
+              <p class="text-sm" style="color:var(--text-secondary);line-height:1.7;">A user wants to understand whether current soil and climate conditions are suitable for a particular crop. The application evaluates input parameters and provides insights about crop compatibility, environmental suitability, and productivity potential.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:2rem;">
+          <div class="d-flex gap-2" style="align-items:flex-start;">
+            <div style="background:rgba(251,191,36,0.1);border-radius:var(--radius-md);padding:0.85rem;font-size:1.5rem;flex-shrink:0;">📊</div>
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">Scenario 3: Agricultural Research & Policy Planning</h3>
+              <p class="text-sm" style="color:var(--text-secondary);line-height:1.7;">Agricultural researchers and policymakers use the system to analyze crop-environment relationships and identify patterns. The platform helps in making data-driven decisions for sustainable farming strategies and resource optimization.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Development Timeline -->
+    <div class="card mb-4" style="padding:2rem;">
+      <div class="section-label">🛠️ Development</div>
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:2rem;">Project Development <span class="gradient-text">Timeline</span></h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Phase 1: Environment Setup & Data Generation</div>
+            <div class="timeline-desc">Python 3.14 environment configured. Agricultural dataset generated with 2,200 samples across 22 crop types using research-based parameter ranges.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Phase 2: ML Model Training & Evaluation</div>
+            <div class="timeline-desc">Four algorithms trained and compared: KNN (89.8%), Logistic Regression (92.5%), Decision Tree (89.8%), Random Forest (93.9%). Random Forest selected as best model.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Phase 3: Data Analysis & Visualization</div>
+            <div class="timeline-desc">Generated feature importance plots, confusion matrix, correlation heatmap, crop distribution, and model comparison charts using Matplotlib and Seaborn.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Phase 4: Flask Backend Development</div>
+            <div class="timeline-desc">Built Flask web application with prediction routes, JSON API endpoint, input validation, and model artifact loading (model.pkl, scaler.pkl, encoder.pkl).</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="box-shadow:0 0 15px rgba(34,197,94,0.8);"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Phase 5: Frontend UI & Deployment ✅</div>
+            <div class="timeline-desc">Premium dark-themed web interface with interactive forms, animated result pages, analytics dashboard, crop catalog, and responsive design deployed locally.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="card mb-4" style="padding:2rem;">
+      <div class="section-label">⚙️ Tech Stack</div>
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:1.5rem;">Technology <span class="gradient-text">Stack</span></h2>
+      <div class="grid-3" style="gap:1rem;">
+        {% set tech = [
+          ('🐍', 'Python 3.14', 'Core programming language', '#3776ab'),
+          ('🌶️', 'Flask 3.1', 'Web framework & routing', '#e8553e'),
+          ('🤖', 'scikit-learn 1.8', 'Machine learning library', '#f89939'),
+          ('🐼', 'pandas 3.0', 'Data manipulation', '#150458'),
+          ('🔢', 'NumPy 2.4', 'Numerical computing', '#013243'),
+          ('📊', 'Matplotlib & Seaborn', 'Data visualization', '#11557c'),
+          ('💾', 'Pickle', 'Model serialization', '#4caf50'),
+          ('🎨', 'HTML5 + CSS3', 'Frontend structure & styling', '#e34c26'),
+          ('🔧', 'Git', 'Version control', '#f05032'),
+        ] %}
+        {% for icon, name, desc, color in tech %}
+        <div style="background:rgba(34,197,94,0.04);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem;display:flex;gap:0.75rem;align-items:flex-start;">
+          <span style="font-size:1.5rem;">{{ icon }}</span>
+          <div>
+            <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);">{{ name }}</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem;">{{ desc }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Model Details -->
+    <div class="card mb-4" style="padding:2rem;">
+      <div class="section-label">🤖 AI Engine</div>
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:1.5rem;">Machine Learning <span class="gradient-text">Models</span></h2>
+      <div class="grid-2" style="gap:1rem;">
+        {% set models_desc = [
+          ('K-Nearest Neighbors', 'KNN', 'Classifies crops based on similarity to k nearest training examples. Simple, interpretable, effective for local patterns.', '89.8%'),
+          ('Logistic Regression', 'LR', 'Probabilistic linear classifier. Provides interpretable coefficients showing each feature\'s contribution to crop selection.', '92.5%'),
+          ('Decision Tree', 'DT', 'Tree-based rule learner. Creates human-readable decision rules for crop selection based on threshold splits.', '89.8%'),
+          ('Random Forest ⭐', 'RF', 'Ensemble of 200 decision trees. Best performer selected for deployment. Robust, handles non-linear relationships excellently.', '93.9%'),
+        ] %}
+        {% for name, abbr, desc, acc in models_desc %}
+        <div style="background:rgba(34,197,94,0.04);border:1px solid {% if '⭐' in name %}rgba(34,197,94,0.4){% else %}var(--border){% endif %};border-radius:var(--radius-md);padding:1.5rem;">
+          <div class="d-flex justify-between align-center mb-1">
+            <div style="font-weight:700;font-size:1rem;">{{ name }}</div>
+            <span style="font-weight:800;color:var(--green-400);">{{ acc }}</span>
+          </div>
+          <div class="text-sm text-muted" style="line-height:1.6;">{{ desc }}</div>
+          <div class="progress-bar mt-2">
+            <div class="progress-fill" data-width="{{ acc }}" style="width:0%;"></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- API Reference -->
+    <div class="card" style="padding:2rem;">
+      <div class="section-label">🔌 API</div>
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:1rem;">REST API <span class="gradient-text">Reference</span></h2>
+      <div style="background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;font-family:monospace;font-size:0.85rem;color:var(--text-secondary);">
+        <div style="color:var(--amber-400);margin-bottom:0.5rem;">POST /api/predict</div>
+        <div style="color:var(--text-muted);margin-bottom:1rem;">Content-Type: application/json</div>
+        <div style="color:var(--green-400);">{</div>
+        <div style="padding-left:1.5rem;color:var(--text-primary);">
+          "N": 82,<br/>
+          "P": 45,<br/>
+          "K": 43,<br/>
+          "temperature": 25.0,<br/>
+          "humidity": 88.0,<br/>
+          "ph": 6.5,<br/>
+          "rainfall": 220.0
+        </div>
+        <div style="color:var(--green-400);">}</div>
+        <div style="border-top:1px solid var(--border);margin:1rem 0;"></div>
+        <div style="color:var(--text-muted);margin-bottom:0.5rem;">Response:</div>
+        <div style="color:var(--green-400);">{</div>
+        <div style="padding-left:1.5rem;color:var(--text-primary);">
+          "success": true,<br/>
+          "recommended_crop": "rice",<br/>
+          "top_5": [<br/>
+          <span style="padding-left:1.5rem;">{"crop": "rice", "confidence": 96.4},</span><br/>
+          <span style="padding-left:1.5rem;">...</span><br/>
+          ]
+        </div>
+        <div style="color:var(--green-400);">}</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border:none;padding:1rem 0;margin:0;">
+      <div class="footer-copy">© 2024 OptiCrop — Smart Agricultural Production Optimization Engine</div>
+      <a href="/" class="btn btn-secondary btn-sm">← Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('load', () => {
+  document.querySelectorAll('.progress-fill[data-width]').forEach(el => {
+    const w = el.getAttribute('data-width');
+    setTimeout(() => { el.style.width = w; }, 500);
+  });
+});
+</script>
+</body>
+</html>

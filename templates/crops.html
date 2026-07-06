@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crop Catalog — OptiCrop</title>
+  <meta name="description" content="Explore all 22 supported crops with growing conditions, seasons, and agricultural information."/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>"/>
+</head>
+<body>
+<div class="bg-particles"></div>
+
+<nav class="navbar">
+  <div class="container d-flex align-center justify-between">
+    <a href="/" class="navbar-brand">
+      <div class="brand-icon">🌱</div>
+      <div>
+        <div class="brand-text"><span>Opti</span><span>Crop</span></div>
+        <div class="brand-sub">Agricultural AI Engine</div>
+      </div>
+    </a>
+    <div class="d-flex align-center gap-1">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/crops" class="nav-link active">Crops</a>
+      <a href="/analytics" class="nav-link">Analytics</a>
+      <a href="/about" class="nav-link">About</a>
+      <a href="/#predict-form" class="nav-link btn-nav-cta btn btn-sm">Get Recommendation</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-4">
+      <div class="section-label">🌾 Crop Database</div>
+      <h1 class="section-title">Supported <span class="gradient-text">Crop Catalog</span></h1>
+      <p class="section-subtitle" style="margin:0 auto;">OptiCrop supports 22 crop types across cereals, legumes, fruits, and cash crops. Click any crop to learn more.</p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="d-flex gap-1 justify-center mb-4" style="flex-wrap:wrap;" id="filter-btns">
+      <button class="btn btn-primary btn-sm" onclick="filterCrops('all', this)">All Crops</button>
+      <button class="btn btn-secondary btn-sm" onclick="filterCrops('Cereal', this)">🌾 Cereals</button>
+      <button class="btn btn-secondary btn-sm" onclick="filterCrops('Legume', this)">🫘 Legumes</button>
+      <button class="btn btn-secondary btn-sm" onclick="filterCrops('Fruit', this)">🍎 Fruits</button>
+      <button class="btn btn-secondary btn-sm" onclick="filterCrops('Cash Crop', this)">💰 Cash Crops</button>
+    </div>
+
+    <!-- Crop Summary Stats -->
+    <div class="grid-4 mb-4">
+      <div class="card" style="padding:1.2rem;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.3rem;">🌾</div>
+        <div class="metric-value" style="font-size:1.5rem;">2</div>
+        <div class="metric-label">Cereals</div>
+      </div>
+      <div class="card" style="padding:1.2rem;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.3rem;">🫘</div>
+        <div class="metric-value" style="font-size:1.5rem;">7</div>
+        <div class="metric-label">Legumes</div>
+      </div>
+      <div class="card" style="padding:1.2rem;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.3rem;">🍎</div>
+        <div class="metric-value" style="font-size:1.5rem;">10</div>
+        <div class="metric-label">Fruits</div>
+      </div>
+      <div class="card" style="padding:1.2rem;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.3rem;">💰</div>
+        <div class="metric-value" style="font-size:1.5rem;">3</div>
+        <div class="metric-label">Cash Crops</div>
+      </div>
+    </div>
+
+    <!-- Crops Grid -->
+    <div class="crops-grid" id="crops-grid">
+      {% for crop_name, info in crops.items() %}
+      <div class="card crop-card animate-in"
+           data-category="{{ info.category }}"
+           onclick="showCropDetail('{{ crop_name }}', '{{ info.emoji }}', '{{ info.season }}', '{{ info.duration }}', '{{ info.water }}', '{{ info.category }}')"
+           style="cursor:pointer;">
+        <span class="crop-card-emoji">{{ info.emoji }}</span>
+        <div class="crop-card-name">{{ crop_name | title }}</div>
+        <div class="crop-card-category">{{ info.category }}</div>
+        <div class="d-flex gap-1 mt-2" style="justify-content:center;flex-wrap:wrap;">
+          <span class="crop-badge" style="background:rgba(34,197,94,0.1);color:var(--green-400);border:1px solid var(--border);">{{ info.season }}</span>
+          <span class="crop-badge" style="background:rgba({% if info.water == 'High' %}239,68,68{% elif info.water == 'Medium' %}251,191,36{% else %}34,197,94{% endif %},0.1);color:{% if info.water == 'High' %}#fca5a5{% elif info.water == 'Medium' %}var(--amber-400){% else %}var(--green-400){% endif %};">
+            💧 {{ info.water }}
+          </span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Crop Detail Modal -->
+<div id="crop-modal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:3rem;max-width:500px;width:90%;position:relative;animation:emoji-pop 0.3s ease;">
+    <button onclick="closeModal()" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:50%;width:36px;height:36px;color:var(--text-secondary);font-size:1rem;cursor:pointer;">✕</button>
+    <div class="text-center">
+      <div id="modal-emoji" style="font-size:5rem;display:block;margin-bottom:0.5rem;"></div>
+      <h2 id="modal-name" style="font-size:2rem;font-weight:900;" class="gradient-text"></h2>
+      <p id="modal-category" class="text-muted text-sm mt-1"></p>
+    </div>
+    <div class="crop-info-grid mt-3">
+      <div class="crop-info-card">
+        <span class="info-icon">📅</span>
+        <div id="modal-season" class="info-value"></div>
+        <div class="info-label">Season</div>
+      </div>
+      <div class="crop-info-card">
+        <span class="info-icon">⏱️</span>
+        <div id="modal-duration" class="info-value" style="font-size:0.8rem;"></div>
+        <div class="info-label">Duration</div>
+      </div>
+      <div class="crop-info-card">
+        <span class="info-icon">💧</span>
+        <div id="modal-water" class="info-value"></div>
+        <div class="info-label">Water Needs</div>
+      </div>
+    </div>
+    <a href="/#predict-form" class="btn btn-primary w-100 mt-3">🌱 Get Recommendation for This Crop</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border:none;padding:1rem 0;margin:0;">
+      <div class="footer-copy">© 2024 OptiCrop — Smart Agricultural Production Optimization Engine</div>
+      <a href="/" class="btn btn-secondary btn-sm">← Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function filterCrops(category, btn) {
+  document.querySelectorAll('#filter-btns button').forEach(b => {
+    b.className = 'btn btn-secondary btn-sm';
+  });
+  btn.className = 'btn btn-primary btn-sm';
+
+  document.querySelectorAll('.crop-card').forEach(card => {
+    if (category === 'all' || card.dataset.category === category) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function showCropDetail(name, emoji, season, duration, water, category) {
+  document.getElementById('modal-emoji').textContent = emoji;
+  document.getElementById('modal-name').textContent = name.charAt(0).toUpperCase() + name.slice(1);
+  document.getElementById('modal-category').textContent = category;
+  document.getElementById('modal-season').textContent = season;
+  document.getElementById('modal-duration').textContent = duration;
+  document.getElementById('modal-water').textContent = water;
+  const modal = document.getElementById('crop-modal');
+  modal.style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('crop-modal').style.display = 'none';
+}
+
+document.getElementById('crop-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.05 });
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

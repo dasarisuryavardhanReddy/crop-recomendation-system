@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analytics Dashboard — OptiCrop</title>
+  <meta name="description" content="Machine learning model performance analytics, feature importance, and crop distribution charts for OptiCrop."/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>"/>
+</head>
+<body>
+<div class="bg-particles"></div>
+
+<nav class="navbar">
+  <div class="container d-flex align-center justify-between">
+    <a href="/" class="navbar-brand">
+      <div class="brand-icon">🌱</div>
+      <div>
+        <div class="brand-text"><span>Opti</span><span>Crop</span></div>
+        <div class="brand-sub">Agricultural AI Engine</div>
+      </div>
+    </a>
+    <div class="d-flex align-center gap-1">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/crops" class="nav-link">Crops</a>
+      <a href="/analytics" class="nav-link active">Analytics</a>
+      <a href="/about" class="nav-link">About</a>
+      <a href="/#predict-form" class="nav-link btn-nav-cta btn btn-sm">Get Recommendation</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section class="section">
+  <div class="container">
+    <div class="mb-4">
+      <div class="section-label">📊 Dashboard</div>
+      <h1 class="section-title">Analytics & <span class="gradient-text">Model Performance</span></h1>
+      <p class="section-subtitle">Comprehensive insights into model accuracy, feature importance, and agricultural data patterns.</p>
+    </div>
+
+    <!-- Model Metrics -->
+    <div class="grid-4 mb-4">
+      <div class="metric-card">
+        <div class="metric-value">{{ (model_info.best_accuracy * 100) | round(1) }}%</div>
+        <div class="metric-label">Best Test Accuracy</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">22</div>
+        <div class="metric-label">Crop Types</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">2,200</div>
+        <div class="metric-label">Training Samples</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">7</div>
+        <div class="metric-label">Input Features</div>
+      </div>
+    </div>
+
+    <!-- Model Comparison Table -->
+    <div class="card mb-4" style="padding:2rem;">
+      <h3 class="fw-bold mb-3">🤖 Model Performance Comparison</h3>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:0.75rem 1rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">Model</th>
+              <th style="text-align:center;padding:0.75rem 1rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">Test Accuracy</th>
+              <th style="text-align:center;padding:0.75rem 1rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">CV Mean</th>
+              <th style="text-align:center;padding:0.75rem 1rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">CV Std</th>
+              <th style="padding:0.75rem 1rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">Performance Bar</th>
+              <th style="text-align:center;padding:0.75rem 1rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for name, res in model_info.results.items() %}
+            <tr style="border-bottom:1px solid rgba(34,197,94,0.05);transition:background 0.2s;" onmouseover="this.style.background='rgba(34,197,94,0.04)'" onmouseout="this.style.background='transparent'">
+              <td style="padding:1rem;font-weight:600;">
+                {% if name == model_info.best_model %}
+                <span style="margin-right:0.5rem;">🏆</span>
+                {% else %}
+                <span style="margin-right:0.5rem;opacity:0.4;">▸</span>
+                {% endif %}
+                {{ name }}
+              </td>
+              <td style="text-align:center;padding:1rem;font-weight:700;color:var(--green-400);">{{ (res.accuracy * 100) | round(2) }}%</td>
+              <td style="text-align:center;padding:1rem;color:var(--text-secondary);">{{ (res.cv_mean * 100) | round(2) }}%</td>
+              <td style="text-align:center;padding:1rem;color:var(--text-muted);font-size:0.85rem;">±{{ (res.cv_std * 100) | round(2) }}%</td>
+              <td style="padding:1rem;min-width:150px;">
+                <div class="progress-bar">
+                  <div class="progress-fill" data-width="{{ (res.accuracy * 100) | round(1) }}%" style="width:0%"></div>
+                </div>
+              </td>
+              <td style="text-align:center;padding:1rem;">
+                {% if name == model_info.best_model %}
+                <span style="background:rgba(34,197,94,0.15);color:var(--green-400);font-size:0.72rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:50px;border:1px solid rgba(34,197,94,0.3);">SELECTED</span>
+                {% else %}
+                <span style="color:var(--text-muted);font-size:0.8rem;">—</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="grid-2 mb-4">
+      <div class="card chart-card">
+        <div class="chart-title">📊 Model Accuracy Comparison</div>
+        <img src="{{ url_for('static', filename='images/plots/model_comparison.png') }}"
+             alt="Model Accuracy Comparison" loading="lazy"/>
+      </div>
+      <div class="card chart-card">
+        <div class="chart-title">🎯 Feature Importance (Random Forest)</div>
+        <img src="{{ url_for('static', filename='images/plots/feature_importance.png') }}"
+             alt="Feature Importance" loading="lazy"/>
+      </div>
+    </div>
+
+    <div class="grid-2 mb-4">
+      <div class="card chart-card">
+        <div class="chart-title">🌾 Crop Distribution in Dataset</div>
+        <img src="{{ url_for('static', filename='images/plots/crop_distribution.png') }}"
+             alt="Crop Distribution" loading="lazy"/>
+      </div>
+      <div class="card chart-card">
+        <div class="chart-title">🔥 Feature Correlation Heatmap</div>
+        <img src="{{ url_for('static', filename='images/plots/correlation_heatmap.png') }}"
+             alt="Correlation Heatmap" loading="lazy"/>
+      </div>
+    </div>
+
+    <div class="card chart-card mb-4">
+      <div class="chart-title">📋 Confusion Matrix — {{ model_info.best_model }}</div>
+      <img src="{{ url_for('static', filename='images/plots/confusion_matrix.png') }}"
+           alt="Confusion Matrix" loading="lazy" style="max-height:600px;margin:0 auto;display:block;"/>
+    </div>
+
+    <!-- Features Info -->
+    <div class="card" style="padding:2rem;">
+      <h3 class="fw-bold mb-3">🧪 Input Features Description</h3>
+      <div class="grid-3" style="gap:1rem;">
+        <div style="background:rgba(34,197,94,0.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🟢</div>
+          <div class="fw-bold" style="color:var(--green-400);">Nitrogen (N)</div>
+          <div class="text-sm text-muted mt-1">Ratio of Nitrogen content in soil (kg/ha). Essential for vegetative growth and chlorophyll production.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🔵</div>
+          <div class="fw-bold" style="color:var(--green-400);">Phosphorous (P)</div>
+          <div class="text-sm text-muted mt-1">Ratio of Phosphorous content in soil (kg/ha). Critical for root development and energy transfer.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🟡</div>
+          <div class="fw-bold" style="color:var(--green-400);">Potassium (K)</div>
+          <div class="text-sm text-muted mt-1">Ratio of Potassium content in soil (kg/ha). Improves disease resistance and crop quality.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🌡️</div>
+          <div class="fw-bold" style="color:var(--green-400);">Temperature</div>
+          <div class="text-sm text-muted mt-1">Average temperature of the region in °C. Affects metabolic rates and crop development stages.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">💧</div>
+          <div class="fw-bold" style="color:var(--green-400);">Humidity</div>
+          <div class="text-sm text-muted mt-1">Relative humidity of the region (%). Influences transpiration, disease pressure, and water stress.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">⚗️</div>
+          <div class="fw-bold" style="color:var(--green-400);">Soil pH</div>
+          <div class="text-sm text-muted mt-1">pH value of the soil (0-14). Controls nutrient availability and microbial activity in soil.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.05);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem;grid-column:span 3 / span 3;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">🌧️</div>
+          <div class="fw-bold" style="color:var(--green-400);">Rainfall</div>
+          <div class="text-sm text-muted mt-1">Average rainfall in the region (mm). Determines water availability and irrigation requirements for crop production.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border:none;padding:1rem 0;margin:0;">
+      <div class="footer-copy">© 2024 OptiCrop — Smart Agricultural Production Optimization Engine</div>
+      <a href="/" class="btn btn-secondary btn-sm">← Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('load', () => {
+  document.querySelectorAll('.progress-fill[data-width]').forEach(el => {
+    const w = el.getAttribute('data-width');
+    setTimeout(() => { el.style.width = w; }, 300);
+  });
+});
+</script>
+</body>
+</html>
